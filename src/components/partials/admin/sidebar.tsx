@@ -1,3 +1,5 @@
+import { signOut } from "next-auth/react";
+
 export const Sidebar = () => {
     return (
         <>
@@ -36,12 +38,12 @@ export const Sidebar = () => {
                     >
                         Settings
                     </a>
-                    <a
-                        href="login.html"
+                    <p
+                        onClick={signOut}
                         className="block px-4 py-2 rounded-lg text-gray-700 hover:bg-red-100 hover:text-red-700"
                     >
                         Logout
-                    </a>
+                    </p>
                 </nav>
             </aside>
         </>
