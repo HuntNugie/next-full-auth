@@ -2,6 +2,8 @@ import Link from "next/link";
 import {useForm} from "react-hook-form";
 import {z} from "zod";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {fetchRegister} from "@/service/fetching";
+import {useRouter} from "next/router";
 
 // buat schema yang benar terlebih dahulu
 const schema = z
@@ -17,20 +19,28 @@ const schema = z
     path: ["confirm_password"],
 });
 
-type FormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof schema>;
 
 export default function RegisterView() {
     const {
         register,
         handleSubmit,
-        formState: {errors, isSubmitting,isValid},
+        formState: {errors, isSubmitting, isValid},reset,
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: "onChange",
     });
 
-    const submitHandle = (data: FormData) => {
-        console.log(data);
+    const {push} = useRouter();
+
+    const submitHandle = async (data: FormData) => {
+        const request = await fetchRegister(data);
+        if (request.ok) {
+            const response = await request.json();
+            push("/login");
+        }else{
+            reset();
+        }
     };
     return (
         <>
