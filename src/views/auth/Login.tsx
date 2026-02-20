@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function LoginView() {
     return (
         <>
@@ -36,9 +38,9 @@ export default function LoginView() {
             </form>
             <p className="mt-4 text-center text-gray-600">
                 Belum punya akun?
-                <a href="register.html" className="text-blue-600 hover:underline">
+                <Link href="/register" className="text-blue-600 hover:underline">
                     Daftar
-                </a>
+                </Link>
             </p>
         </>
     );
